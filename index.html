@@ -57,7 +57,7 @@
                     <div class="search">
                         <div class="search-box">
                             <img class="search-icon" src="/images/baidu.jpg"> 
-                            <input id="txt" class="search-input" placeholder="搜索内容~" /> 
+                            <input id="txt" class="search-input" placeholder="搜索内容~" onfocus="this.select(); this.style.color='#333333'" /> 
                             <button class="search-btn visible-sm visible-md visible-lg" id="search-btn">GO</button> 
                             <i class="search-clear icon icon-remove-sign" style="display:none"></i>
                         </div>
@@ -352,7 +352,7 @@
         </div>
     </div>
     <footer class="footer text-center bg-white">
-        <div class="container"><span id="hitokoto">总有美丽的风景让人流连~</span></div>
+        <div class="container"><span id="hitokoto"></span></div>
     </footer>
     <script src="/js/js.js"></script>
 </body>
