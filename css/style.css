@@ -683,3 +683,39 @@ header .animated2 .bottom {
         right: 95px
     }
 }
+
+.on_changes{
+	list-style:none; 
+	padding:3px;
+	height: auto;
+    overflow-y: scroll;
+}
+.on_changes li{
+	margin:0px;
+	padding:6px;
+    font-size: 16px;
+}
+.on_changes li.active{
+	background:#CEE7FF;
+}
+.on_changes li.current {
+    background-color: #eee;
+}
+
+.suggest {
+    height: auto;
+    width: auto;
+    position: absolute; 
+    z-index: 10; 
+	background:#FFF; 
+    display: none;
+
+    border-radius: 0 0 10px 10px;
+    overflow: hidden;
+    flex-wrap: wrap;
+    border: solid #e6e6e6;
+    border-top-width: 0px;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+}

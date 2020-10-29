@@ -8,7 +8,7 @@ $(".left-menu-btn")["hover"](function () {
   });
   $('#tow-nav')["fadeOut"](0);
 });
-var mIysiyja1 = browserRedirect();
+var deviceVal = browserRedirect();
 
 function browserRedirect() {
   var zAIB_f2 = navigator["userAgent"]["toLowerCase"]();
@@ -50,6 +50,7 @@ function browserRedirect() {
   }
   window["ShowHideElement"] = ShowHideElement;
 }());
+
 var now = -1;
 var resLength = 0;
 var thisSearch = 'https://www.baidu.com/s?wd=';
@@ -71,20 +72,20 @@ $('#txt').keydown(function (ev) {
     if (now > resLength - 1) {
       now = 0
     }
-    $('#box ul li').eq(now).addClass('current').siblings().removeClass('current');
-    $('#txt').val($('#box ul li').eq(now).text())
+    $('#suggest_list ul li').eq(now).addClass('current').siblings().removeClass('current');
+    $('#txt').val($('#suggest_list ul li').eq(now).text())
   }
   if (ev.keyCode == 38) {
     if (now == -1 || now === 0) {
       now = resLength
     }
     now--;
-    $('#box ul li').eq(now).addClass('current').siblings().removeClass('current');
-    $('#txt').val($('#box ul li').eq(now).text())
+    $('#suggest_list ul li').eq(now).addClass('current').siblings().removeClass('current');
+    $('#txt').val($('#suggest_list ul li').eq(now).text())
   }
   if (ev.keyCode == 13) {
     var textValue = $('#txt').val();
-    if (mIysiyja1 == "phone" && thisSearch.search("bilibili") != -1) {
+    if (deviceVal == "phone" && thisSearch.search("bilibili") != -1) {
       thisSearch = "https://m.bilibili.com/search?keyword=";
     }
     window.open(thisSearch + $('#txt').val());
@@ -100,6 +101,7 @@ $(function () {
   }).done(function(msg) {
   document.getElementById('hitokoto').innerHTML = msg;
 })});
+
 
 $(function () {
   var search = {
@@ -149,7 +151,6 @@ $(function () {
     } else {
       storage.stopHot = true
     }
-    console.log(storage.stopHot)
   });
   $('.search-engine-list li').click(function () {
     var _index = $(this).index();
@@ -162,7 +163,7 @@ $(function () {
 });
 $("#search-btn").click(function () {
   var textValue = $('#txt').val();
-  if (mIysiyja1 == "phone" && thisSearch.search("bilibili") != -1) {
+  if (deviceVal == "phone" && thisSearch.search("bilibili") != -1) {
     thisSearch = "https://m.bilibili.com/search?keyword=";
   }
   window.open(thisSearch + $('#txt').val());
@@ -284,4 +285,113 @@ function myApi() {
       })
     }
   }
+}
+
+$(function () {
+  document.getElementById('txt').oninput = function() { txt_oninput(); }
+  document.getElementById('txt').onblur = function () { txt_blur(); }
+
+  function txt_oninput() {
+    var content = document.getElementById('txt').value;
+    var do_suggest = 0;
+
+    if (thisSearch.search('google') != -1) {
+      url = 'https://suggestqueries.google.com/complete/search?client=youtube&q=' + content + '&jsonp=suggest_google';
+      do_suggest = 1;
+    }
+    else if (thisSearch.search('baidu') != -1) {
+      url = 'http://suggestion.baidu.com/su?wd=' + content + '&cb=suggest_baidu';
+      do_suggest = 1;
+    }
+    else if (thisSearch.search('bing') != -1) {
+      url = 'http://api.bing.com/qsonhs.aspx?type=cb&q=' + content + '&cb=suggest_bing';
+      do_suggest = 1;
+    }
+
+    if (do_suggest == 1) {
+      var script = document.createElement('script');
+      script.setAttribute('src', url);
+      script.setAttribute('type', 'text/javascript');
+      document.getElementsByTagName('head')[0].appendChild(script);
+
+      now = -1;
+    }
+  }
+
+  function txt_blur() {
+    $('#suggest_list').css("display", "none");
+    $(".search-box").css("border-radius", "10px");
+  }
+});
+
+function suggest_google(json) {
+  var suggestion = [];
+  for (var i = 0; i < json[1].length; ++i)
+  {
+    suggestion.push(json[1][i][0]);
+  }
+  // console.log(suggestion);
+  if (suggestion.length > 0) {
+    getConfirm('https://www.google.com/search?q=', suggestion);
+  }
+  resLength = suggestion.length;
+}
+
+function suggest_baidu(obj) {
+  suggestion = obj['s']
+  // console.log(obj['s']);
+  if (suggestion.length > 0) {
+    getConfirm('https://www.baidu.com/s?wd=', suggestion);
+  }
+  resLength = suggestion.length;
+}
+
+function suggest_bing(obj) {
+  if (obj["AS"]["FullResults"] > 0)
+  {
+    var res = obj["AS"]["Results"][0]["Suggests"];
+    var suggestion = [];
+    for (var i = 0; i < res.length; ++i)
+    {
+      suggestion.push(res[i]["Txt"]);
+    }
+    getConfirm('https://cn.bing.com/search?q=', suggestion);
+  }
+  resLength = suggestion.length;
+}
+
+function getConfirm(url, arr){
+	// 删除，保证每次都是最新的数据
+  $(".on_changes li").remove();
+  var display = $('#suggest_list');
+  var search_box = $('.search-box');
+
+  if (arr.length == 0) {
+    if (display.css("display") == "block") {
+      display.css("display", "none");
+      search_box.css("border-radius", "10px");
+    }
+  }
+  else {
+    $.each(arr,function(idx,item){
+      //组装数据
+      //alert(item);
+      var li = "<li onmousedown='get(&apos;"+url+item+"&apos;)' onmouseover='this.style.backgroundColor=\"#eee\";'onmouseout='this.style.backgroundColor=\"#fff\";'>"+item+"</li>";
+      //alert(li);
+      $(".on_changes").append(li);
+    });
+    // 控制下拉框显示
+    $(".on_changes").css("width", (parseInt($("#txt").css("width")) + parseInt($('#search-btn').css("width"))).toString() + "px");//设置加载的下拉列表宽度同输入框
+    if(display.css("display") == "none"){
+      display.css("display", "block");
+      search_box.css("border-radius", "10px 10px 0px 0px");
+    }
+  }
+}
+
+function get(url) {
+  console.log(url);
+  window.open(url);
+	$("#suggest_list").css("display", "none");
+  $(".search-box").css("border-radius", "10px");
 }
