@@ -295,15 +295,15 @@ $(function () {
     var content = document.getElementById('txt').value;
     var do_suggest = 0;
 
-    if (thisSearch.search('google') != -1) {
+    if (content.length > 0 && thisSearch.search('google') != -1) {
       url = 'https://suggestqueries.google.com/complete/search?client=youtube&q=' + content + '&jsonp=suggest_google';
       do_suggest = 1;
     }
-    else if (thisSearch.search('baidu') != -1) {
+    else if (content.length > 0 && thisSearch.search('baidu') != -1) {
       url = 'http://suggestion.baidu.com/su?wd=' + content + '&cb=suggest_baidu';
       do_suggest = 1;
     }
-    else if (thisSearch.search('bing') != -1) {
+    else if (content.length > 0 && thisSearch.search('bing') != -1) {
       url = 'http://api.bing.com/qsonhs.aspx?type=cb&q=' + content + '&cb=suggest_bing';
       do_suggest = 1;
     }
@@ -333,8 +333,8 @@ function suggest_google(json) {
   // console.log(suggestion);
   if (suggestion.length > 0) {
     getConfirm('https://www.google.com/search?q=', suggestion);
+    resLength = suggestion.length;
   }
-  resLength = suggestion.length;
 }
 
 function suggest_baidu(obj) {
@@ -342,8 +342,8 @@ function suggest_baidu(obj) {
   // console.log(obj['s']);
   if (suggestion.length > 0) {
     getConfirm('https://www.baidu.com/s?wd=', suggestion);
+    resLength = suggestion.length;
   }
-  resLength = suggestion.length;
 }
 
 function suggest_bing(obj) {
@@ -356,8 +356,8 @@ function suggest_bing(obj) {
       suggestion.push(res[i]["Txt"]);
     }
     getConfirm('https://cn.bing.com/search?q=', suggestion);
+    resLength = suggestion.length;
   }
-  resLength = suggestion.length;
 }
 
 function getConfirm(url, arr){
