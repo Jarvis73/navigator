@@ -719,3 +719,16 @@ header .animated2 .bottom {
     border-right-width: 1px;
     border-bottom-width: 1px;
 }
+
+.link-page {
+    font-size: 130%;
+}
+
+.h1-resource {
+    padding-top: 30px;
+    padding-bottom: 10px;
+}
+
+.h2-resource {
+    padding-left: 30px;
+}
