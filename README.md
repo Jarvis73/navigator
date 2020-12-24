@@ -20,6 +20,11 @@
 * B站
 * Github
 
+## 版本
+
+* 浙大版 (包含浙大常用链接和更多编程相关链接): https://nav.jarvis73.com/ 源码在 [mine](https://github.com/Jarvis73/navigator/tree/mine) 分支
+* 简化版 (仅包含通用工具): https://ludeng.jarvis73.com/ 源码在 [master](https://github.com/Jarvis73/navigator) 分支
+
 ## 更新日志
 
 * **2020-12-24:** 增加了影音资源,编程资源和工具资源页面
