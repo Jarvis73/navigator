@@ -26,6 +26,8 @@ function browserRedirect() {
     return 'pc';
   }
 }
+
+// 根据设备调整显示的内容
 (function () {
   window["onresize"] = function () {
     ShowHideElement("i-link-box", "linkList-item", 845);
@@ -51,6 +53,26 @@ function browserRedirect() {
   window["ShowHideElement"] = ShowHideElement;
 }());
 
+
+// 执行搜索功能
+function do_search() {
+  var textValue = $('#txt').val();
+  
+  // 替换字符串中的特殊字符
+  textValue = escape(textValue);
+
+  // Bilibili 移动端使用不同的搜索API
+  if (deviceVal == "phone" && thisSearch.search("bilibili") != -1) {
+    thisSearch = "https://m.bilibili.com/search?keyword=";
+  }
+  
+  // 打开新页面并显示搜索结果
+  window.open(thisSearch + textValue);
+  $('#box ul').html('')
+}
+
+
+// 定义全局变量
 var now = -1;
 var resLength = 0;
 var thisSearch = 'https://www.baidu.com/s?wd=';
@@ -84,15 +106,12 @@ $('#txt').keydown(function (ev) {
     $('#txt').val($('#suggest_list ul li').eq(now).text())
   }
   if (ev.keyCode == 13) {
-    var textValue = $('#txt').val();
-    if (deviceVal == "phone" && thisSearch.search("bilibili") != -1) {
-      thisSearch = "https://m.bilibili.com/search?keyword=";
-    }
-    window.open(thisSearch + $('#txt').val());
-    $('#box ul').html('')
+    do_search()
   }
 });
 
+
+// 在页面底部生成每日一句
 $(function () {
   $.ajax({
   type: 'get',
@@ -103,6 +122,7 @@ $(function () {
 })});
 
 
+// 定义搜索引擎
 $(function () {
   var search = {
     data: [{
@@ -161,14 +181,8 @@ $(function () {
     storage.searchEngine = [thisSearch, thisImg]
   })
 });
-$("#search-btn").click(function () {
-  var textValue = $('#txt').val();
-  if (deviceVal == "phone" && thisSearch.search("bilibili") != -1) {
-    thisSearch = "https://m.bilibili.com/search?keyword=";
-  }
-  window.open(thisSearch + $('#txt').val());
-  $('#box ul').html('')
-});
+
+
 'use strict';
 $(function () {
   if (deviceVal == 'phone') {
@@ -293,6 +307,7 @@ $(function () {
 
   function txt_oninput() {
     var content = document.getElementById('txt').value;
+    content = content.replace("#", "%23");
     var do_suggest = 0;
 
     if (content.length > 0 && thisSearch.search('google') != -1) {

@@ -58,7 +58,7 @@
                         <div class="search-box">
                             <img class="search-icon" src="/images/baidu.jpg"> 
                             <input id="txt" class="search-input" placeholder="搜索内容~" onfocus="this.select(); this.style.color='#333333'" /> 
-                            <button class="search-btn visible-sm visible-md visible-lg" id="search-btn">GO</button> 
+                            <button class="search-btn visible-sm visible-md visible-lg" id="search-btn" onclick="do_search()">GO</button> 
                             <i class="search-clear icon icon-remove-sign" style="display:none"></i>
                         </div>
                         <div class="search-engine" style="display: none;">
@@ -69,13 +69,7 @@
                                 </div>
                             </div>
                             <ul class="search-engine-list">
-                                <!-- <li><img src="/images/baidu.jpg">百度</li>
-                                <li><img src="/images/google.jpg">谷歌</li>
-                                <li><img src="/images/bing.jpg">必应</li>
-                                <li><img src="/images/zhihu.jpg">知乎</li>
-                                <li><img src="/images/youdao.jpg">有道</li>
-                                <li><img src="/images/bilibili.jpg">B站</li>
-                                <li><img src="/images/github.jpg">Github</li> -->
+                                <!-- 通过js添加 -->
                             </ul>
                         </div>
                         <div id="suggest_list" class="suggest">
@@ -397,17 +391,13 @@
                         <div class="row">
                             <div class="col-xs-12"><strong class="dhname" id="1">其他</strong></div>
 
-                            <div class="col-xs-4 mb-2"><a href="/media.html" 
-                                target="_blank">影音资源</a></div>
+                            <div class="col-xs-4 mb-2"><a href="/media.html">影音资源</a></div>
                             
-                            <div class="col-xs-4 mb-2"><a href="/coding.html" 
-                                target="_blank">编程资源</a></div>
+                            <div class="col-xs-4 mb-2"><a href="/coding.html">编程资源</a></div>
 
-                            <div class="col-xs-4 mb-2"><a href="/tools.html" 
-                                target="_blank">工具资源</a></div>
+                            <div class="col-xs-4 mb-2"><a href="/tools.html">工具资源</a></div>
 
-                            <div class="col-xs-4 mb-2"><a href="https://github.com/Jarvis73/navigator" 
-                                target="_blank">关于本站</a></div>
+                            <div class="col-xs-4 mb-2"><a href="https://github.com/Jarvis73/navigator">关于本站</a></div>
                         </div>
                     </div>
                 </div>
@@ -417,7 +407,7 @@
     <footer class="footer text-center bg-white">
         <div class="container"><span id="hitokoto"></span></div>
     </footer>
-    <script src="/js/js.js"></script>
+    <script src="/js/main.js"></script>
 </body>
 
 </html>
