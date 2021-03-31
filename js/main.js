@@ -54,12 +54,57 @@ function browserRedirect() {
 }());
 
 
+const character_mapping = {
+  " ": "+",
+  "!": "%21",
+  // "\"": "%22",
+  "#": "%23",
+  "$": "%24",
+  "%": "%25",
+  "&": "%26",
+  "'": "%27",
+  "(": "%28",
+  ")": "%29",
+  // "*": "%2A",
+  "+": "%2B",
+  ",": "%2C",
+  "-": "%2D",
+  // ".": "%2E",
+  "/": "%2F",
+  ":": "%3A",
+  ";": "%3B",
+  // "<": "%3C",
+  "=": "%3D",
+  // ">": "%3E",
+  "?": "%3F",
+  "@": "%40",
+  "[": "%5B",
+  "\\": "%5C",
+  "]": "%5D",
+  "^": "%5E",
+  // "_": "%5F",
+  "{": "%7B",
+  "|": "%7C",
+  "}": "%7D",
+  "~": "%7E",
+}
 // 执行搜索功能
 function do_search() {
   var textValue = $('#txt').val();
   
   // 替换字符串中的特殊字符
-  textValue = escape(textValue);
+  var newTextValue = [];
+  for (var i = 0; i < textValue.length; i++)
+  {
+    var strChar = textValue.charAt(i);
+    if (strChar in character_mapping)
+    {
+      strChar = character_mapping[strChar];
+    }
+    newTextValue.push(strChar);
+  }
+  textValue = newTextValue.join("");
+  console.log(textValue);
 
   // Bilibili 移动端使用不同的搜索API
   if (deviceVal == "phone" && thisSearch.search("bilibili") != -1) {
