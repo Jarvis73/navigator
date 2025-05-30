@@ -172,31 +172,31 @@ $(function () {
   var search = {
     data: [{
       name: '百度',
-      img: '/images/baidu.jpg',
+      img: 'images/baidu.jpg',
       url: 'https://www.baidu.com/s?wd='
     }, {
       name: '谷歌',
-      img: '/images/google.jpg',
+      img: 'images/google.jpg',
       url: 'https://www.google.com/search?q='
     }, {
       name: '必应',
-      img: '/images/bing.ico',
+      img: 'images/bing.ico',
       url: 'https://cn.bing.com/search?q='
     }, {
       name: '知乎',
-      img: '/images/zhihu.jpg',
+      img: 'images/zhihu.jpg',
       url: 'https://www.zhihu.com/search?q='
     }, {
       name: '有道',
-      img: '/images/youdao.jpg',
+      img: 'images/youdao.jpg',
       url: 'https://dict.youdao.com/w/eng/'
     }, {
       name: 'Bilibili',
-      img: '/images/bilibili.jpg',
+      img: 'images/bilibili.jpg',
       url: 'https://search.bilibili.com/all?keyword='
     }, {
       name: 'Github',
-      img: '/images/github.jpg',
+      img: 'images/github.jpg',
       url: 'https://github.com/search?q='
     }]
   };
